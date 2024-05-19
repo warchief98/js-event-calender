@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div>
@@ -25,6 +26,19 @@
 
         </tbody>
     </table>
-    <script src="index.js" type="module"></script>
+
+    <div id="eventContainer" class="event-box-hide">
+        <div>
+            <header>add event</header>
+        <section>
+            <textarea name="" id="eventTextArea"></textarea>
+        </section>
+        <footer>
+            <button id="saveEvent">save</button>
+            <button id="closeModal">cancel</button>
+        </footer>
+        </div>
+    </div>
+    <script src="js/index.js" type="module"></script>
 </body>
 </html>
