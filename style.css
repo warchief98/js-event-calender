@@ -1,3 +1,32 @@
+table{
+    width: 100%;
+    height: 500px;
+}
+
+.board{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.board .btn-group{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    /* align-items: space; */
+    border: 1px solid red;
+}
+.btn-group .btn{
+    width: 150px;
+    height: 80px;
+    font-size: 26px;
+}
+.board #currentDate{
+    font-size: 32px;
+    padding: 20px;
+    margin: 30px;
+    box-shadow: inset 0px 0px 10px silver;
+}
+
 #tableBody{
 
 }
@@ -22,6 +51,12 @@
     position: absolute;
     top: 0;
     left: 0;
+}
+.box{
+
+}
+.event{
+    background-color: chartreuse;
 }
 
 #eventContainer>div{
