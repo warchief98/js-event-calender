@@ -32,7 +32,7 @@ async function setSelectedTime(time = new Date().toLocaleDateString(), render = 
 }
 
 function selectedDayDetails(a){
-    // 5/17/2024
+    // ***5/17/2024
 
     firstDay = new Date(selectedTime.getFullYear(), selectedTime.getMonth(), 1).getDay();
     lastDay = new Date(selectedTime.getFullYear(), selectedTime.getMonth() + 1, 0).getDay();
@@ -40,12 +40,8 @@ function selectedDayDetails(a){
     makeEachMonthComponent()
 }
 
-// async checkEventAvailablity(dateString){
-
-// }
 function makeEachMonthComponent(){
-    // console.log('time in makeCMP', selectedTime)
-    // remove all nodes to generate now
+    // ***remove all nodes to generate now
     if(tableBody.children.length > 0){
         while (tableBody.firstChild) {
             tableBody.firstChild.remove()
@@ -71,8 +67,6 @@ function makeEachMonthComponent(){
                 }
             })
             td.classList.add('box')
-            if(selectedTime.getMonth())
-            // if(new Date(selectedTime).toLocaleDateString() == )
             td.innerText = i - firstDay + 1
         }else{
             td = document.createElement('td')
