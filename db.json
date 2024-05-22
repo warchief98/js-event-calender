@@ -1,0 +1,75 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  },
+  "events": [
+    {
+      "id": 1,
+      "date": "",
+      "text": ""
+    },
+    {
+      "date": "5/1/2024",
+      "text": "123123",
+      "id": 2
+    },
+    {
+      "date": "5/1/2024",
+      "text": "asdasd",
+      "id": 3
+    },
+    {
+      "date": "5/2/2024",
+      "text": "asdasd",
+      "id": 4
+    },
+    {
+      "date": "6/7/2024",
+      "text": "asdasd",
+      "id": 5
+    },
+    {
+      "date": "6/8/2024",
+      "text": "dasdas",
+      "id": 6
+    },
+    {
+      "date": "7/12/2024",
+      "text": "ascasc",
+      "id": 7
+    },
+    {
+      "id": 8
+    },
+    {
+      "id": 9
+    },
+    {
+      "id": 10
+    },
+    {
+      "date": "5/3/2024",
+      "text": "q1weqweqwe",
+      "id": 11
+    },
+    {
+      "date": "11/6/2024",
+      "text": "this is mahsa birthday",
+      "id": 12
+    }
+  ]
+}

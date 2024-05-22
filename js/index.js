@@ -1,8 +1,90 @@
-'use strict'
+// 'use strict'
 
-import { monthsName } from "./variables.js";
+import { monthsName, state as State } from "./variables.js";
+import { initCalender } from "./api.js";
+import { callApi } from "./api.js";
 
-let selectedTime
+// await initCalender()
+// const myPromis = new Promise((resolve, reject)=>{
+//     let temp = fetch()
+//     if(temp)
+//         resolve('ok');
+//     reject('error')
+// })
+// myPromis.then((res)=>{
+//     console.log('success after some delay')
+// })
+// myPromis.then((err)=> {
+//     console.log('err after some delay')
+// })
+
+// import callApi from "./api.js";
+
+const apiUrl = 'http://localhost:3000/events'
+
+async function onLoad(){
+    // const res = await callApi1()
+    // let temp = await callApi()
+    // const res = new Promise(async(resolve,reject)=>{
+    //     temp = await callApi1()
+    //     resolve('done')
+    // })
+    // res.then((response)=>{
+        // console.log('temp',temp)
+    //     console.log('res',response)
+    // })
+    const res = await callApi('GET', apiUrl)
+    console.log('res',res)
+}
+
+onLoad()
+
+// async function callApi(method, url, data){
+//     const requestOptions = {
+//         method: method,
+//         headers: {
+//           'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify(data),
+//     };
+    
+
+//     await fetch(url, requestOptions)
+//     .then(response => {
+//         if (!response.ok) {
+//           throw new Error('Network response was not ok');
+//         }
+//         return response.json();
+//       })
+
+//       .then(data => {
+//         eventArray = JSON.stringify(data);
+//       })
+      
+//       .catch(error => {
+//         console.error
+//         ('Error:', error);
+//       });
+// }
+
+fetch(apiUrl)
+    .then(response => {
+        if (!response.ok) {
+        throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        // console.log(data);
+        eventArray = data
+        makeEachMonthComponent()
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+
+
+// let State.selectedTime
 
 let allDayNodes
 let reserveSelected
@@ -22,20 +104,20 @@ let textArea = document.getElementById('eventTextArea')
 let eventBox = document.getElementById('eventContainer')
 
 async function setSelectedTime(time = new Date().toLocaleDateString(), render = true){
-    selectedTime = new Date(time);
-    // console.log('set()',selectedTime.toLocaleDateString())
+    State.selectedTime = new Date(time);
+    // console.log('set()',State.selectedTime.toLocaleDateString())
     if(render){
-        console.log('1111', selectedTime.toLocaleDateString())
+        // console.log('1111', State.selectedTime.toLocaleDateString())
         selectedDayDetails()
     }
-    console.error('selected',selectedTime)
+    console.error('selected',State.selectedTime)
 }
 
 function selectedDayDetails(a){
     // ***5/17/2024
 
-    firstDay = new Date(selectedTime.getFullYear(), selectedTime.getMonth(), 1).getDay();
-    lastDay = new Date(selectedTime.getFullYear(), selectedTime.getMonth() + 1, 0).getDay();
+    firstDay = new Date(State.selectedTime.getFullYear(), State.selectedTime.getMonth(), 1).getDay();
+    lastDay = new Date(State.selectedTime.getFullYear(), State.selectedTime.getMonth() + 1, 0).getDay();
 
     makeEachMonthComponent()
 }
@@ -57,11 +139,12 @@ function makeEachMonthComponent(){
             tr = document.createElement('tr')
         }
         if(firstDay <= i){
-            let timeTemp = `${selectedTime.getMonth()+1}` + `/${i - firstDay + 1}/` + selectedTime.getFullYear()
+            let timeTemp = `${State.selectedTime.getMonth()+1}` + `/${i - firstDay + 1}/` + State.selectedTime.getFullYear()
             // setSelectedTime(timeTemp, false)
             td = document.createElement('td')
 
             eventArray.forEach(x => {
+                // console.log('x.data',x.data)
                 if(x.date === timeTemp){
                     td.classList.add('event')
                 }
@@ -77,33 +160,33 @@ function makeEachMonthComponent(){
         tableBody.appendChild(tr)
     }
 
-    // renew the value of selectedTime to show
+    // renew the value of State.selectedTime to show
     // setSelectedTime(new Date().toLocaleDateString(), false)
-    currentDate.innerText = monthsName[selectedTime.getMonth()] + "/" + selectedTime.getDate() + "/" + selectedTime.getFullYear()
+    currentDate.innerText = monthsName[State.selectedTime.getMonth()] + "/" + State.selectedTime.getDate() + "/" + State.selectedTime.getFullYear()
     addClickEventToEachDay()
 }
 
 async function nextMonth(){
-    if(selectedTime.getMonth() >= 11){
-        selectedTime.setMonth(0)
-        selectedTime.setFullYear(selectedTime.getFullYear() + 1)
+    if(State.selectedTime.getMonth() >= 11){
+        State.selectedTime.setMonth(0)
+        State.selectedTime.setFullYear(State.selectedTime.getFullYear() + 1)
     }else{
-        // let temp = selectedTime.getMonth() + 1
-        // console.log('selectedTime',selectedTime.toLocaleDateString())
+        // let temp = State.selectedTime.getMonth() + 1
+        // console.log('State.selectedTime',State.selectedTime.toLocaleDateString())
         // console.log('temp',temp.toString())
-        // selectedTime.setMonth(temp.toString())
-        // console.log('selectedTime',selectedTime.toLocaleDateString())
-        console.log('selectedTime',selectedTime.toLocaleDateString())
-        // let time = selectedTime.getMonth()+3 + '/' + selectedTime.getDate() + '/' + selectedTime.getFullYear()
+        // State.selectedTime.setMonth(temp.toString())
+        // console.log('State.selectedTime',State.selectedTime.toLocaleDateString())
+        // console.log('State.selectedTime',State.selectedTime.toLocaleDateString())
+        // let time = State.selectedTime.getMonth()+3 + '/' + State.selectedTime.getDate() + '/' + State.selectedTime.getFullYear()
         // console.log('time',time)
-        selectedTime.setMonth((selectedTime.getMonth() + 1).toString())
+        State.selectedTime.setMonth((State.selectedTime.getMonth() + 1).toString())
         // setSelectedTime(time)
     }
-    console.log('selectedTime',selectedTime.toLocaleDateString())
+    // console.log('State.selectedTime',State.selectedTime.toLocaleDateString())
     // setTimeout(() => {
-        setSelectedTime(selectedTime)
+        setSelectedTime(State.selectedTime)
     // },300) 
-    console.log('selectedTime',selectedTime.toLocaleDateString())
+    // console.log('State.selectedTime',State.selectedTime.toLocaleDateString())
 
 }
 document.getElementById('nextBtn').addEventListener('click',() => {
@@ -111,11 +194,11 @@ document.getElementById('nextBtn').addEventListener('click',() => {
 })
 
 async function prevMonth(){
-    if(selectedTime.getMonth() == 0){
-        selectedTime.setMonth(11)
-        selectedTime.setFullYear(selectedTime.getFullYear()-1)
+    if(State.selectedTime.getMonth() == 0){
+        State.selectedTime.setMonth(11)
+        State.selectedTime.setFullYear(State.selectedTime.getFullYear()-1)
     }else{
-        selectedTime.setMonth(selectedTime.getMonth()-1)
+        State.selectedTime.setMonth(State.selectedTime.getMonth()-1)
     }
     selectedDayDetails()
 }
@@ -128,7 +211,7 @@ function addClickEventToEachDay(){
     allDayNodes.forEach((element, index)=> {
         element.addEventListener('click', () => {
             toggleShow()
-            let timeTemp = `${selectedTime.getMonth()+1}` + `/${index+1}/` + selectedTime.getFullYear()
+            let timeTemp = `${State.selectedTime.getMonth()+1}` + `/${index+1}/` + State.selectedTime.getFullYear()
             reserveSelected = timeTemp
             setSelectedTime(timeTemp, false)
 
@@ -151,12 +234,21 @@ document.getElementById('closeModal').addEventListener('click',() => {
     toggleShow()
 })
 
-document.getElementById('saveEvent').addEventListener('click',() => {
+document.getElementById('saveEvent').addEventListener('click',async () => {
     let temp = {
         date: reserveSelected,
         text: textArea.value
     }
     eventArray.push(temp)
+    // let temp2 = 
+    // let data = await 
+    let res = await callApi('POST', apiUrl, temp)
+    console.log('resPOST',res)
+    // if(data){
+    // }
+    // debugger
+
+
 
     console.log('array',eventArray)
 
